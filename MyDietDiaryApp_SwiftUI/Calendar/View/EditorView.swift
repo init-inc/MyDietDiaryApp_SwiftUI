@@ -17,6 +17,7 @@ struct EditorView: View {
         VStack(spacing: 20.0) {
             dateInput
             weightInput
+            Spacer()
         }
     }
     
