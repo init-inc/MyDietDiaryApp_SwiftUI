@@ -7,14 +7,27 @@
 
 import SwiftUI
 
+/// 機能切替タブボタン.
 struct SwitchTabView: View {
+    /// 機能ごとのタグ番号.
+    @Binding var sectionTagNumber: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        tab
+    }
+    
+    private var tab: some View {
+        TabView(
+            selection: $sectionTagNumber,
+            content: {
+                
+            }
+        )
     }
 }
 
 struct SwitchTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SwitchTabView()
+        SwitchTabView(sectionTagNumber: .constant(0))
     }
 }
