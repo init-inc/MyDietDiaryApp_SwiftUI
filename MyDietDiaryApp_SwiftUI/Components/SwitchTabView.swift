@@ -20,7 +20,19 @@ struct SwitchTabView: View {
         TabView(
             selection: $sectionTagNumber,
             content: {
-                
+                CalendarContentView()
+                    .padding(
+                        EdgeInsets(
+                            top: 150.0,
+                            leading: 20.0,
+                            bottom: 100.0,
+                            trailing: 20.0
+                        )
+                    )
+                    .tabItem {
+                        Text("カレンダー")
+                    }
+                    .tag(0)
             }
         )
     }
