@@ -12,27 +12,38 @@ struct SwitchTabView: View {
     /// 機能ごとのタグ番号.
     @Binding var sectionTagNumber: Int
     
+    @State private var isEditorShow = false
+    
     var body: some View {
         tab
+            .sheet(
+                isPresented: $isEditorShow,
+                content: {
+                    EditorView()
+                }
+            )
     }
     
     private var tab: some View {
         TabView(
             selection: $sectionTagNumber,
             content: {
-                CalendarContentView()
-                    .padding(
-                        EdgeInsets(
-                            top: 150.0,
-                            leading: 20.0,
-                            bottom: 100.0,
-                            trailing: 20.0
+                VStack(spacing: .zero) {
+                    CalendarContentView()
+                        .padding(
+                            EdgeInsets(
+                                top: 150.0,
+                                leading: 20.0,
+                                bottom: 100.0,
+                                trailing: 20.0
+                            )
                         )
-                    )
-                    .tabItem {
-                        Text("カレンダー")
-                    }
-                    .tag(0)
+                    ConfigureButton(isEditorShow: $isEditorShow)
+                }
+                .tabItem {
+                    Text("カレンダー")
+                }
+                .tag(0)
             }
         )
     }
