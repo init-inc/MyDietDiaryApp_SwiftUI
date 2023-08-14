@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    /// 画面更新時に初期化されないようにStateObject使用.
+    /// 体重記録ViewModel.
+    @StateObject var weightData = WeightRecordData()
+    /// 現在開いているタブのインデックス.
     @State private var index = 0
     
     var body: some View {
-        SwitchTabView(sectionTagNumber: $index)
+        // タブ＋コンテントView
+        SwitchTabView(weightData: weightData, sectionTagNumber: $index)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(weightData: WeightRecordData())
     }
 }

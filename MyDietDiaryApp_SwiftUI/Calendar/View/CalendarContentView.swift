@@ -7,18 +7,25 @@ import FSCalendar
 
 /// カレンダーView.
 struct CalendarContentView: UIViewRepresentable {
-    func makeUIView(context: Context) -> some UIView {
-        typealias UIViewType = FSCalendar
-        
+    
+    @ObservedObject var weightData: WeightRecordData
+    
+    @Binding var isEditorShow: Bool
+    
+    func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
+        
+        calendar.dataSource = context.coordinator
+        
+        calendar.delegate = context.coordinator
         
         configureCalendar(calendar)
         
         return calendar
     }
     
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        // 空白
+    func updateUIView(_ uiView: FSCalendar, context: Context) {
+        uiView.reloadData()
     }
     
     func configureCalendar(_ calendar: FSCalendar) {
@@ -40,10 +47,42 @@ struct CalendarContentView: UIViewRepresentable {
         calendar.calendarWeekdayView.weekdayLabels[0].textColor = .red
         calendar.calendarWeekdayView.weekdayLabels[6].textColor = .blue
     }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(weightData: weightData, isEditorShow: $isEditorShow)
+    }
+    
+    class Coordinator: NSObject, FSCalendarDataSource, FSCalendarDelegate {
+        
+        @ObservedObject var weightData: WeightRecordData
+        
+        @Binding var isEditorShow: Bool
+        
+        init(weightData: WeightRecordData, isEditorShow: Binding<Bool>) {
+            self.weightData = weightData
+            self._isEditorShow = isEditorShow
+        }
+        
+        func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+            let dateList = weightData.recordList.map({ $0.date.zeroclock })
+            // 比較対象のDate型の年月日が一致していた場合にtrueとなる
+            let isEqualDate = dateList.contains(date.zeroclock)
+            return isEqualDate ? 1 : 0
+        }
+        
+        func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+            calendar.deselect(date)
+            guard let record = weightData.recordList.first(where: { $0.date.zeroclock == date.zeroclock }) else {
+                return
+            }
+            weightData.weightEntries = record
+            isEditorShow = true
+        }
+    }
 }
 
 struct CalendarContentView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarContentView()
+        CalendarContentView(weightData: WeightRecordData(), isEditorShow: .constant(false))
     }
 }
