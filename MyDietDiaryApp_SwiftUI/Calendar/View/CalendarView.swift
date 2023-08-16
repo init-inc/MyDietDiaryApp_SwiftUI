@@ -1,12 +1,12 @@
 //
-//  CalendarContentView.swift
+//  CalendarView.swift
 //
 
 import SwiftUI
 import FSCalendar
 
 /// カレンダーView.
-struct CalendarContentView: UIViewRepresentable {
+struct CalendarView: UIViewRepresentable {
     
     @ObservedObject var weightData: WeightRecordData
     
@@ -75,14 +75,15 @@ struct CalendarContentView: UIViewRepresentable {
             guard let record = weightData.recordList.first(where: { $0.date.zeroclock == date.zeroclock }) else {
                 return
             }
-            weightData.weightEntries = record
+            weightData.editDate = record.date
+            weightData.editWeight = record.weight
             isEditorShow = true
         }
     }
 }
 
-struct CalendarContentView_Previews: PreviewProvider {
+struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarContentView(weightData: WeightRecordData(), isEditorShow: .constant(false))
+        CalendarView(weightData: WeightRecordData(), isEditorShow: .constant(false))
     }
 }

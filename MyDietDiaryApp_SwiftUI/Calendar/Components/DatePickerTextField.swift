@@ -5,22 +5,22 @@
 import SwiftUI
 import UIKit
 
-// TODO: UIViewController出ないと表現できない可能性が高いため一旦使わずに保留
+// TODO: 値の更新ができないため一旦使用停止
 struct DatePickerTextField: UIViewRepresentable {
     
-    @ObservedObject var weightData: WeightRecordData
+    @Binding var date: Date
     
-    func makeUIView(context: Context) -> UITextField {
+    func makeUIView(context: Context) -> UIView {
         let textField = UITextField()
         
         textField.borderStyle = .roundedRect
         textField.inputView = datePicker
-        textField.text = dateFormatter.string(from: weightData.weightEntries.date)
+        textField.text = dateFormatter.string(from: date)
         
         return textField
     }
     
-    func updateUIView(_ uiView: UITextField, context: Context) {
+    func updateUIView(_ uiView: UIView, context: Context) {
     }
     
     var dateFormatter: DateFormatter {
@@ -37,7 +37,24 @@ struct DatePickerTextField: UIViewRepresentable {
         datePicker.timeZone = .current
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.locale = Locale(identifier: "ja-JP")
-        datePicker.date = Date()
+        datePicker.date = date
         return datePicker
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(date: $date)
+    }
+    
+    class Coordinator: NSObject, UIApplicationDelegate {
+        
+        @Binding var date: Date
+        
+        init(date: Binding<Date>) {
+            self._date = date
+        }
+        
+        override func didChangeValue(forKey key: String) {
+            print("aaaaaa")
+        }
     }
 }

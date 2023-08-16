@@ -8,13 +8,25 @@ import RealmSwift
 struct EditorView: View {
     /// 体重記録ViewModel.
     @ObservedObject var weightData: WeightRecordData
+    /// 体重記録から渡された日付.
+    @State var date: Date
+    /// 体重記録から渡された体重.
+    @State var weight: String
     /// 日付選択ピッカーの表示フラグ.
-    @State private var isDatePickerShown = false
-    /// 仮の体重値.
-    @State private var weight = ""
+    @State private var isDatePickerShow = false
+    /// 入力画面表示フラグ.
+    @Binding var isEditorShow: Bool
     
     var body: some View {
         ZStack(alignment: .bottom) {
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation {
+                        isDatePickerShow = false
+                        UIApplication.shared.closeKeyboard()
+                    }
+                }
             VStack(spacing: 20.0) {
                 // 日付入力フォーム
                 dateInput
@@ -23,11 +35,14 @@ struct EditorView: View {
                 Spacer()
                 // 保存ボタン
                 saveButton
+                // 削除ボタン
+                deleteButton
             }
             // 日付選択ピッカー
-            datePicker
+            CustomDatePicker(date: $date, isPickerShow: isDatePickerShow)
                 .transition(.move(edge: .bottom))
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     /// 日付選択フォーム.
@@ -35,52 +50,11 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 20.0) {
             Text("日付")
                 .font(.system(size: 17.0))
-            // SwiftUIではTextFieldにカスタム性がないためViewを切り離して再現
-            ZStack {
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color(.systemGray6), lineWidth: 1.0)
-                HStack {
-                    Text(dateFormatter.string(from: weightData.weightEntries.date))
-                        .padding(.leading, 8.0)
-                    Spacer()
-                }
-            }
-            .frame(height: 35.0)
-            .onTapGesture {
-                withAnimation {
-                    isDatePickerShown.toggle()
-                }
-            }
+            // SwiftUIではTextFieldにカスタム性がないためViewを作り直して再現
+            CustomDateTextField(date: $date, isPickerShow: $isDatePickerShow)
+                .frame(height: 35.0)
         }
         .padding([.top, .leading, .trailing], 40.0)
-    }
-    
-    /// 日付TextField.
-    private var datePicker: some View {
-        VStack(spacing: .zero) {
-            // 日付TextField
-            ZStack {
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(height: 35.0)
-                HStack {
-                    Button("done") {
-                        withAnimation {
-                            isDatePickerShown = false
-                        }
-                    }
-                    .padding(.leading, 16.0)
-                    Spacer()
-                }
-            }
-            // 日付ピッカー
-            DatePicker("", selection: $weightData.weightEntries.date, displayedComponents: .date)
-                .datePickerStyle(.wheel)
-                .background {
-                    Color(.systemGray6)
-                }
-        }
-        .offset(y: isDatePickerShown ? 0.0 : 300.0)
     }
     
     /// 体重TextField.
@@ -88,27 +62,57 @@ struct EditorView: View {
         VStack(alignment: .leading, spacing: 20.0) {
             Text("体重")
                 .font(.system(size: 17.0))
-            TextField("", text: $weight)
-                .textFieldStyle(.roundedBorder)
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color(.systemGray5), lineWidth: 1.0)
+                TextField("", text: $weight)
+                    .keyboardType(.numberPad)
+                    .padding(.horizontal, 8.0)
+            }
+            .frame(height: 35.0)
         }
         .padding([.leading, .trailing], 40.0)
     }
     
     /// 保存ボタン.
     private var saveButton: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color.orange)
-                .frame(height: 40.0)
-            Text("保存")
-                .font(.system(size: 15.0))
-                .foregroundColor(Color.white)
-        }
+        Button(
+            action: {
+                weightData.saveRecord(dateText: date, weightText: weight)
+                isEditorShow = false
+            }, label: {
+                ZStack {
+                    Rectangle()
+                        .fill(Color.orange)
+                        .frame(height: 40.0)
+                    Text("保存")
+                        .font(.system(size: 15.0))
+                        .foregroundColor(Color.white)
+                }
+            }
+        )
         .padding(.horizontal, 40.0)
-        .padding(.bottom, 100.0)
-        .onTapGesture {
-            weightData.saveRecord(dateText: weightData.weightEntries.date, weightText: weight)
-        }
+    }
+    
+    /// 保存ボタン.
+    private var deleteButton: some View {
+        Button(
+            action: {
+                weightData.deleteRecord()
+                isEditorShow = false
+            }, label: {
+                ZStack {
+                    Rectangle()
+                        .fill(Color.white)
+                        .frame(height: 40.0)
+                    Text("削除")
+                        .font(.system(size: 15.0))
+                        .foregroundColor(Color.red)
+                }
+            }
+        )
+        .padding([.horizontal, .bottom], 40.0)
+        .padding(.top, 20.0)
     }
 }
 
@@ -131,6 +135,6 @@ extension UIApplication {
 
 struct EditorView_Previews: PreviewProvider {
     static var previews: some View {
-        EditorView(weightData: WeightRecordData())
+        EditorView(weightData: WeightRecordData(), date: Date(), weight: "0.0", isEditorShow: .constant(true))
     }
 }

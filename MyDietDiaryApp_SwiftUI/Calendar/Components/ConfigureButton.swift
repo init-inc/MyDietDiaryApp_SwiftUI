@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ConfigureButton: View {
     
+    @ObservedObject var weightData: WeightRecordData
+    
     @Binding var isEditorShow: Bool
     
     var body: some View {
@@ -31,6 +33,7 @@ struct ConfigureButton: View {
         .frame(width: 50.0, height: 50.0, alignment: .bottomTrailing)
         .padding([.bottom, .trailing], 20.0)
         .onTapGesture {
+            weightData.getRecord()
             isEditorShow = true
         }
     }
@@ -38,6 +41,6 @@ struct ConfigureButton: View {
 
 struct ConfigureButton_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigureButton(isEditorShow: .constant(false))
+        ConfigureButton(weightData: WeightRecordData(), isEditorShow: .constant(false))
     }
 }
