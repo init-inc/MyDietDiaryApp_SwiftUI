@@ -10,7 +10,7 @@ import Charts
 
 struct GraphView: UIViewRepresentable {
     
-    @ObservedObject var weightData: WeightRecordData
+    @ObservedObject var weightData: WeightRecordViewModel
     
     func makeUIView(context: Context) -> LineChartView {
         let graph = LineChartView()
@@ -61,9 +61,9 @@ struct GraphView: UIViewRepresentable {
     
     class Coordinator: NSObject, ChartViewDelegate {
         
-        @ObservedObject var weightData: WeightRecordData
+        @ObservedObject var weightData: WeightRecordViewModel
         
-        init(weightData: WeightRecordData) {
+        init(weightData: WeightRecordViewModel) {
             self.weightData = weightData
         }
         
@@ -75,6 +75,6 @@ struct GraphView: UIViewRepresentable {
 
 struct GraphContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GraphView(weightData: WeightRecordData())
+        GraphView(weightData: WeightRecordViewModel())
     }
 }

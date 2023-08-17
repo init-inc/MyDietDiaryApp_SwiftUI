@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConfigureButton: View {
     
-    @ObservedObject var weightData: WeightRecordData
+    @ObservedObject var weightData: WeightRecordViewModel
     
     @Binding var isEditorShown: Bool
     
@@ -41,6 +41,6 @@ struct ConfigureButton: View {
 
 struct ConfigureButton_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigureButton(weightData: WeightRecordData(), isEditorShow: .constant(false))
+        ConfigureButton(weightData: WeightRecordViewModel(), isEditorShown: .constant(false))
     }
 }

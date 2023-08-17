@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     /// 画面更新時に初期化されないようにStateObject使用.
     /// 体重記録ViewModel.
-    @StateObject var weightData = WeightRecordData()
+    @StateObject var weightData = WeightRecordViewModel()
     /// 現在開いているタブのインデックス.
     @State private var index = 0
     
@@ -22,6 +22,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(weightData: WeightRecordData())
+        ContentView(weightData: WeightRecordViewModel())
     }
 }

@@ -5,8 +5,8 @@
 import Foundation
 import RealmSwift
 
-/// 体重記録ViewModel.
-class WeightRecordData: ObservableObject {
+/// 体重記録データ.
+class WeightRecordViewModel: ObservableObject {
     /// 体重記録配列.
     @Published var recordList: [WeightRecordModel] = []
     /// グラフに表示する配列.

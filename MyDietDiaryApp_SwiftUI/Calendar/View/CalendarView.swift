@@ -8,7 +8,7 @@ import FSCalendar
 /// カレンダーView.
 struct CalendarView: UIViewRepresentable {
     
-    @ObservedObject var weightData: WeightRecordData
+    @ObservedObject var weightData: WeightRecordViewModel
     
     @Binding var isEditorShown: Bool
     
@@ -54,11 +54,11 @@ struct CalendarView: UIViewRepresentable {
     
     class Coordinator: NSObject, FSCalendarDataSource, FSCalendarDelegate {
         
-        @ObservedObject var weightData: WeightRecordData
+        @ObservedObject var weightData: WeightRecordViewModel
         
         @Binding var isEditorShow: Bool
         
-        init(weightData: WeightRecordData, isEditorShow: Binding<Bool>) {
+        init(weightData: WeightRecordViewModel, isEditorShow: Binding<Bool>) {
             self.weightData = weightData
             self._isEditorShow = isEditorShow
         }
@@ -84,6 +84,6 @@ struct CalendarView: UIViewRepresentable {
 
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView(weightData: WeightRecordData(), isEditorShown: .constant(false))
+        CalendarView(weightData: WeightRecordViewModel(), isEditorShown: .constant(false))
     }
 }

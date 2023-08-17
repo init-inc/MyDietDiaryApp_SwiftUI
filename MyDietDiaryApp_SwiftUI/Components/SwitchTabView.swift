@@ -10,7 +10,7 @@ import SwiftUI
 /// 機能切替タブボタン.
 struct SwitchTabView: View {
     /// 体重記録データ.
-    @ObservedObject var weightData: WeightRecordData
+    @ObservedObject var weightData: WeightRecordViewModel
     /// 機能ごとのタグ番号.
     @Binding var sectionTagNumber: Int
     /// スタート日変更のDatePicker.
@@ -119,6 +119,6 @@ struct SwitchTabView: View {
 
 struct SwitchTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SwitchTabView(weightData: WeightRecordData(), sectionTagNumber: .constant(0))
+        SwitchTabView(weightData: WeightRecordViewModel(), sectionTagNumber: .constant(0))
     }
 }

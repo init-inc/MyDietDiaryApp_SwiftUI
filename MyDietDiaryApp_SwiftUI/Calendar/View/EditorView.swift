@@ -6,8 +6,8 @@ import SwiftUI
 import RealmSwift
 
 struct EditorView: View {
-    /// 体重記録ViewModel.
-    @ObservedObject var weightData: WeightRecordData
+    /// 体重記録データ.
+    @ObservedObject var weightData: WeightRecordViewModel
     /// 体重記録から渡された日付.
     @State var date: Date
     /// 体重記録から渡された体重.
@@ -94,7 +94,7 @@ struct EditorView: View {
         .padding(.horizontal, 40.0)
     }
     
-    /// 保存ボタン.
+    /// 削除ボタン.
     private var deleteButton: some View {
         Button(
             action: {
@@ -135,6 +135,6 @@ extension UIApplication {
 
 struct EditorView_Previews: PreviewProvider {
     static var previews: some View {
-        EditorView(weightData: WeightRecordData(), date: Date(), weight: "0.0", isEditorShown: .constant(true))
+        EditorView(weightData: WeightRecordViewModel(), date: Date(), weight: "0.0", isEditorShown: .constant(true))
     }
 }

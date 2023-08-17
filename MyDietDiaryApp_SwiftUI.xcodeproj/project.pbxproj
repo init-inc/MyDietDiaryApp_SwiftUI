@@ -10,7 +10,7 @@
 		6D7ADAC32A89D35F00FDFE50 /* ConfigureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADAC22A89D35F00FDFE50 /* ConfigureButton.swift */; };
 		6D7ADAC52A89D84200FDFE50 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADAC42A89D84200FDFE50 /* EditorView.swift */; };
 		6D7ADAC82A89EA7900FDFE50 /* WeightRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADAC72A89EA7900FDFE50 /* WeightRecordModel.swift */; };
-		6D7ADACB2A89EBF700FDFE50 /* WeightRecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADACA2A89EBF700FDFE50 /* WeightRecordData.swift */; };
+		6D7ADACB2A89EBF700FDFE50 /* WeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADACA2A89EBF700FDFE50 /* WeightRecordViewModel.swift */; };
 		6D7ADACD2A89FEA700FDFE50 /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADACC2A89FEA700FDFE50 /* DatePickerTextField.swift */; };
 		6D7ADAD02A8A1A8D00FDFE50 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADACF2A8A1A8D00FDFE50 /* Extension+Date.swift */; };
 		6D7ADAD22A8B208A00FDFE50 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7ADAD12A8B208A00FDFE50 /* GraphView.swift */; };
@@ -31,7 +31,7 @@
 		6D7ADAC22A89D35F00FDFE50 /* ConfigureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureButton.swift; sourceTree = "<group>"; };
 		6D7ADAC42A89D84200FDFE50 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		6D7ADAC72A89EA7900FDFE50 /* WeightRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordModel.swift; sourceTree = "<group>"; };
-		6D7ADACA2A89EBF700FDFE50 /* WeightRecordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordData.swift; sourceTree = "<group>"; };
+		6D7ADACA2A89EBF700FDFE50 /* WeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordViewModel.swift; sourceTree = "<group>"; };
 		6D7ADACC2A89FEA700FDFE50 /* DatePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		6D7ADACF2A8A1A8D00FDFE50 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		6D7ADAD12A8B208A00FDFE50 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 		6D7ADAC92A89EBBA00FDFE50 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				6D7ADACA2A89EBF700FDFE50 /* WeightRecordData.swift */,
+				6D7ADACA2A89EBF700FDFE50 /* WeightRecordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -327,7 +327,7 @@
 				6D7ADAD02A8A1A8D00FDFE50 /* Extension+Date.swift in Sources */,
 				6D7ADAD22A8B208A00FDFE50 /* GraphView.swift in Sources */,
 				6D7ADAC82A89EA7900FDFE50 /* WeightRecordModel.swift in Sources */,
-				6D7ADACB2A89EBF700FDFE50 /* WeightRecordData.swift in Sources */,
+				6D7ADACB2A89EBF700FDFE50 /* WeightRecordViewModel.swift in Sources */,
 				6D7ADACD2A89FEA700FDFE50 /* DatePickerTextField.swift in Sources */,
 				6D7ADAC52A89D84200FDFE50 /* EditorView.swift in Sources */,
 				6DDC0C852A89A846009BB2BB /* SwitchTabView.swift in Sources */,
