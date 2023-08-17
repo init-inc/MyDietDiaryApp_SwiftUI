@@ -14,20 +14,20 @@ struct SwitchTabView: View {
     /// 機能ごとのタグ番号.
     @Binding var sectionTagNumber: Int
     /// スタート日変更のDatePicker.
-    @State var isStartPickerShow = false
+    @State var isStartPickerShown = false
     /// エンド日変更のDatePicker.
-    @State var isEndPickerShow = false
+    @State var isEndPickerShown = false
     /// 記録画面表示フラグ.
-    @State private var isEditorShow = false
+    @State private var isEditorShown = false
     
     var body: some View {
         // セクションごとのView
         tab
             .sheet(
-                isPresented: $isEditorShow,
+                isPresented: $isEditorShown,
                 content: {
                     // 記録画面
-                    EditorView(weightData: weightData, date: weightData.editDate, weight: String(ceil(weightData.editWeight)), isEditorShow: $isEditorShow)
+                    EditorView(weightData: weightData, date: weightData.editDate, weight: String(ceil(weightData.editWeight)), isEditorShown: $isEditorShown)
                         .onDisappear {
                             // 記録画面を閉じるときに新しい記録取得し直す
                             weightData.getRecord()
@@ -43,7 +43,7 @@ struct SwitchTabView: View {
             content: {
                 VStack(spacing: .zero) {
                     // カレンダー画面
-                    CalendarView(weightData: weightData, isEditorShow: $isEditorShow)
+                    CalendarView(weightData: weightData, isEditorShown: $isEditorShown)
                         .padding(
                             EdgeInsets(
                                 top: 150.0,
@@ -56,7 +56,7 @@ struct SwitchTabView: View {
                             weightData.getRecord()
                         }
                     // 記録画面へ遷移するボタン
-                    ConfigureButton(weightData: weightData, isEditorShow: $isEditorShow)
+                    ConfigureButton(weightData: weightData, isEditorShown: $isEditorShown)
                 }
                 .tabItem {
                     VStack {
@@ -69,11 +69,11 @@ struct SwitchTabView: View {
                         Spacer()
                         HStack {
                             Text("期間")
-                            CustomDateTextField(date: $weightData.startDate, isPickerShow: $isStartPickerShow)
+                            CustomDateTextField(date: $weightData.startDate, isPickerShown: $isStartPickerShown)
                                 .frame(height: 35.0)
                             Text("ー")
                                 .padding(.horizontal, 8.0)
-                            CustomDateTextField(date: $weightData.endDate, isPickerShow: $isEndPickerShow)
+                            CustomDateTextField(date: $weightData.endDate, isPickerShown: $isEndPickerShown)
                                 .frame(height: 35.0)
                         }
                         .padding(.horizontal, 16.0)
@@ -90,17 +90,17 @@ struct SwitchTabView: View {
                     }
                     .onTapGesture {
                         withAnimation {
-                            isStartPickerShow = false
-                            isEndPickerShow = false
+                            isStartPickerShown = false
+                            isEndPickerShown = false
                             weightData.sortRecord()
                         }
                     }
                     .onTapGesture {
                         UIApplication.shared.closeKeyboard()
                     }
-                    CustomDatePicker(date: $weightData.startDate, isPickerShow: isStartPickerShow)
+                    CustomDatePicker(date: $weightData.startDate, isPickerShown: isStartPickerShown)
                         .transition(.move(edge: .bottom))
-                    CustomDatePicker(date: $weightData.endDate, isPickerShow: isEndPickerShow)
+                    CustomDatePicker(date: $weightData.endDate, isPickerShown: isEndPickerShown)
                         .transition(.move(edge: .bottom))
                 }
                 .onAppear {

@@ -11,7 +11,7 @@ struct CustomDatePicker: View {
     
     @Binding var date: Date
     
-    let isPickerShow: Bool
+    let isPickerShown: Bool
     
     var body: some View {
         datePicker
@@ -27,12 +27,12 @@ struct CustomDatePicker: View {
                     Color(.systemGray6)
                 }
         }
-        .offset(y: isPickerShow ? 0.0 : 300.0)
+        .offset(y: isPickerShown ? 0.0 : 300.0)
     }
 }
 
 struct CustomDatePicker_Previews: PreviewProvider {
     static var previews: some View {
-        CustomDatePicker(date: .constant(Date()), isPickerShow: false)
+        CustomDatePicker(date: .constant(Date()), isPickerShown: false)
     }
 }

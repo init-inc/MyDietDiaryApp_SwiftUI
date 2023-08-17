@@ -40,21 +40,4 @@ struct DatePickerTextField: UIViewRepresentable {
         datePicker.date = date
         return datePicker
     }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(date: $date)
-    }
-    
-    class Coordinator: NSObject, UIApplicationDelegate {
-        
-        @Binding var date: Date
-        
-        init(date: Binding<Date>) {
-            self._date = date
-        }
-        
-        override func didChangeValue(forKey key: String) {
-            print("aaaaaa")
-        }
-    }
 }

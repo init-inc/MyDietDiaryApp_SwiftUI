@@ -10,7 +10,7 @@ struct CalendarView: UIViewRepresentable {
     
     @ObservedObject var weightData: WeightRecordData
     
-    @Binding var isEditorShow: Bool
+    @Binding var isEditorShown: Bool
     
     func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
@@ -49,7 +49,7 @@ struct CalendarView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(weightData: weightData, isEditorShow: $isEditorShow)
+        Coordinator(weightData: weightData, isEditorShow: $isEditorShown)
     }
     
     class Coordinator: NSObject, FSCalendarDataSource, FSCalendarDelegate {
@@ -84,6 +84,6 @@ struct CalendarView: UIViewRepresentable {
 
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView(weightData: WeightRecordData(), isEditorShow: .constant(false))
+        CalendarView(weightData: WeightRecordData(), isEditorShown: .constant(false))
     }
 }

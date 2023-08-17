@@ -8,7 +8,7 @@ struct CustomDateTextField: View {
     
     @Binding var date: Date
     
-    @Binding var isPickerShow: Bool
+    @Binding var isPickerShown: Bool
     
     var body: some View {
         textField
@@ -27,7 +27,7 @@ struct CustomDateTextField: View {
         }
         .onTapGesture {
             withAnimation {
-                isPickerShow.toggle()
+                isPickerShown.toggle()
             }
         }
         .frame(height: 35.0)
@@ -46,6 +46,6 @@ extension CustomDateTextField {
 
 struct CustomDateTextField_Previews: PreviewProvider {
     static var previews: some View {
-        CustomDateTextField(date: .constant(Date()), isPickerShow: .constant(false))
+        CustomDateTextField(date: .constant(Date()), isPickerShown: .constant(false))
     }
 }

@@ -11,7 +11,7 @@ struct ConfigureButton: View {
     
     @ObservedObject var weightData: WeightRecordData
     
-    @Binding var isEditorShow: Bool
+    @Binding var isEditorShown: Bool
     
     var body: some View {
         HStack {
@@ -34,7 +34,7 @@ struct ConfigureButton: View {
         .padding([.bottom, .trailing], 20.0)
         .onTapGesture {
             weightData.getRecord()
-            isEditorShow = true
+            isEditorShown = true
         }
     }
 }

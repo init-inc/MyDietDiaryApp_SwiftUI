@@ -13,9 +13,9 @@ struct EditorView: View {
     /// 体重記録から渡された体重.
     @State var weight: String
     /// 日付選択ピッカーの表示フラグ.
-    @State private var isDatePickerShow = false
+    @State private var isDatePickerShown = false
     /// 入力画面表示フラグ.
-    @Binding var isEditorShow: Bool
+    @Binding var isEditorShown: Bool
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -23,7 +23,7 @@ struct EditorView: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     withAnimation {
-                        isDatePickerShow = false
+                        isDatePickerShown = false
                         UIApplication.shared.closeKeyboard()
                     }
                 }
@@ -39,7 +39,7 @@ struct EditorView: View {
                 deleteButton
             }
             // 日付選択ピッカー
-            CustomDatePicker(date: $date, isPickerShow: isDatePickerShow)
+            CustomDatePicker(date: $date, isPickerShown: isDatePickerShown)
                 .transition(.move(edge: .bottom))
         }
         .ignoresSafeArea(.keyboard)
@@ -51,7 +51,7 @@ struct EditorView: View {
             Text("日付")
                 .font(.system(size: 17.0))
             // SwiftUIではTextFieldにカスタム性がないためViewを作り直して再現
-            CustomDateTextField(date: $date, isPickerShow: $isDatePickerShow)
+            CustomDateTextField(date: $date, isPickerShown: $isDatePickerShown)
                 .frame(height: 35.0)
         }
         .padding([.top, .leading, .trailing], 40.0)
@@ -79,7 +79,7 @@ struct EditorView: View {
         Button(
             action: {
                 weightData.saveRecord(dateText: date, weightText: weight)
-                isEditorShow = false
+                isEditorShown = false
             }, label: {
                 ZStack {
                     Rectangle()
@@ -99,7 +99,7 @@ struct EditorView: View {
         Button(
             action: {
                 weightData.deleteRecord()
-                isEditorShow = false
+                isEditorShown = false
             }, label: {
                 ZStack {
                     Rectangle()
@@ -135,6 +135,6 @@ extension UIApplication {
 
 struct EditorView_Previews: PreviewProvider {
     static var previews: some View {
-        EditorView(weightData: WeightRecordData(), date: Date(), weight: "0.0", isEditorShow: .constant(true))
+        EditorView(weightData: WeightRecordData(), date: Date(), weight: "0.0", isEditorShown: .constant(true))
     }
 }
