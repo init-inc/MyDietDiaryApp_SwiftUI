@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ConfigureButton: View {
     
-    @Binding var isEditorShow: Bool
+    @ObservedObject var weightData: WeightRecordViewModel
+    
+    @Binding var isEditorShown: Bool
     
     var body: some View {
         HStack {
@@ -31,13 +33,14 @@ struct ConfigureButton: View {
         .frame(width: 50.0, height: 50.0, alignment: .bottomTrailing)
         .padding([.bottom, .trailing], 20.0)
         .onTapGesture {
-            isEditorShow = true
+            weightData.getRecord()
+            isEditorShown = true
         }
     }
 }
 
 struct ConfigureButton_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigureButton(isEditorShow: .constant(false))
+        ConfigureButton(weightData: WeightRecordViewModel(), isEditorShown: .constant(false))
     }
 }

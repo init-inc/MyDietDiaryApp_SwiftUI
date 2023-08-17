@@ -1,16 +1,16 @@
 //
-//  CalendarContentView.swift
+//  CalendarView.swift
 //
 
 import SwiftUI
 import FSCalendar
 
 /// カレンダーView.
-struct CalendarContentView: UIViewRepresentable {
+struct CalendarView: UIViewRepresentable {
     
-    @ObservedObject var weightData: WeightRecordData
+    @ObservedObject var weightData: WeightRecordViewModel
     
-    @Binding var isEditorShow: Bool
+    @Binding var isEditorShown: Bool
     
     func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
@@ -49,16 +49,16 @@ struct CalendarContentView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(weightData: weightData, isEditorShow: $isEditorShow)
+        Coordinator(weightData: weightData, isEditorShow: $isEditorShown)
     }
     
     class Coordinator: NSObject, FSCalendarDataSource, FSCalendarDelegate {
         
-        @ObservedObject var weightData: WeightRecordData
+        @ObservedObject var weightData: WeightRecordViewModel
         
         @Binding var isEditorShow: Bool
         
-        init(weightData: WeightRecordData, isEditorShow: Binding<Bool>) {
+        init(weightData: WeightRecordViewModel, isEditorShow: Binding<Bool>) {
             self.weightData = weightData
             self._isEditorShow = isEditorShow
         }
@@ -75,14 +75,15 @@ struct CalendarContentView: UIViewRepresentable {
             guard let record = weightData.recordList.first(where: { $0.date.zeroclock == date.zeroclock }) else {
                 return
             }
-            weightData.weightEntries = record
+            weightData.editDate = record.date
+            weightData.editWeight = record.weight
             isEditorShow = true
         }
     }
 }
 
-struct CalendarContentView_Previews: PreviewProvider {
+struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarContentView(weightData: WeightRecordData(), isEditorShow: .constant(false))
+        CalendarView(weightData: WeightRecordViewModel(), isEditorShown: .constant(false))
     }
 }

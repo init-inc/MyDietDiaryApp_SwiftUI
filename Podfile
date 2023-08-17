@@ -6,6 +6,7 @@ target 'MyDietDiaryApp_SwiftUI' do
   use_frameworks!
   pod 'FSCalendar'
   pod 'RealmSwift'
+  pod 'Charts'
 
   # Pods for MyDietDiaryApp_SwiftUI
 
